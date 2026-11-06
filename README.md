@@ -31,7 +31,7 @@ Upload-API gibt — und bricht, wenn eine Plattform ihr Web-UI umbaut.
 | Facebook-Profil | `sau facebook` | ✅ | ✅ | – |
 | Facebook-Page | `sau facebook-page` | ✅ | ✅ | ✅ (lokale Zeit) |
 | Instagram | `sau instagram` | Reels | Einzelbild/Karussell | – |
-| TikTok | – (Python-Uploader) | ✅ | – | via `publish_date` |
+| TikTok | – (Python-Uploader) | ✅ | ✅ (1–35 Bilder) | via `publish_date` |
 
 Ein `sau`-Befehl existiert für TikTok **nicht**; siehe
 [`.claude/skills/tiktok-upload/SKILL.md`](./.claude/skills/tiktok-upload/SKILL.md).
@@ -168,7 +168,7 @@ redesigns its web UI.
 | Facebook profile | `sau facebook` | yes | yes | – |
 | Facebook Page | `sau facebook-page` | yes | yes | yes (local time) |
 | Instagram | `sau instagram` | Reels | single image / carousel | – |
-| TikTok | – (Python uploader) | yes | – | via `publish_date` |
+| TikTok | – (Python uploader) | yes | yes (1–35 images) | via `publish_date` |
 
 There is **no** `sau` command for TikTok; see
 [`.claude/skills/tiktok-upload/SKILL.md`](./.claude/skills/tiktok-upload/SKILL.md).

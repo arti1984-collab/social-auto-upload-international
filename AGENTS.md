@@ -8,7 +8,7 @@ An international fork of [dreammis/social-auto-upload](https://github.com/dreamm
 
 | Platform | Skill | CLI | Video | Image post | Scheduling |
 | --- | --- | --- | --- | --- | --- |
-| TikTok | `.claude/skills/tiktok-upload` | none (Python uploader) | yes | no | via `publish_date` |
+| TikTok | `.claude/skills/tiktok-upload` | none (Python uploader) | yes | yes (1–35 images) | via `publish_date` |
 | YouTube | `.claude/skills/youtube-upload` | `sau youtube` | yes | no | via YouTube Studio |
 | Facebook profile | `.claude/skills/facebook-upload` | `sau facebook` | yes | yes | no |
 | Facebook Page | `.claude/skills/meta-upload` | `sau facebook-page` | yes | yes | yes (local time) |
