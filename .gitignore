@@ -198,3 +198,9 @@ videoFile
 
 # Persistente Browserprofile (Sessions, Cookies)
 profiles/
+
+# Lauf-Protokolle der CLI
+logs/
+
+# Lokale Testdateien
+/videos/tiktok-*.mp4

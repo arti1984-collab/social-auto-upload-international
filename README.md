@@ -98,6 +98,7 @@ Copy-Item conf.example.py conf.py # dann LOCAL_BROWSER etc. setzen
 sau --help
 ```
 
+Anleitung von Anfang bis Ende: [docs/handbuch.md](./docs/handbuch.md).
 Details: [docs/install.md](./docs/install.md). Update: [docs/update.md](./docs/update.md).
 Alle Schalter: [docs/CLI.md](./docs/CLI.md).
 
@@ -123,8 +124,8 @@ unter `.local/` bzw. am mit `--result` angegebenen Pfad.
   blind erneut hochladen.
 - Facebook-Page-Zeiten sind **Peking-Zeit** (`Asia/Shanghai`), mindestens 2 Stunden in der Zukunft.
 - Instagram kann nicht planen, Facebook-Profile auch nicht.
-- YouTube: Titel max. 100 Zeichen; Scheduling über den Studio-Dialog, dessen Datumsfelder du
-  danach prüfen musst.
+- YouTube: Titel max. 100 Zeichen; ein Upload veröffentlicht sofort. `--schedule` wird für YouTube
+  abgelehnt, weil der Studio-Dialog nicht automatisiert ist — den Termin dort selbst setzen.
 - Cookie-Automatisierung verstößt gegen die Nutzungsbedingungen der Plattformen und kann zu
   Risk-Control oder Sperren führen.
 - Selektoren brechen, wenn eine Plattform ihr Web-UI umbaut; dann stoppen statt raten.
@@ -134,7 +135,7 @@ unter `.local/` bzw. am mit `--result` angegebenen Pfad.
 `uploader/` enthält die Browser-Flows (`meta_uploader` = Facebook + Page + Instagram,
 `tk_uploader` = TikTok, `youtube_uploader`), `sau_commands/` die CLI-Parameter je Plattform samt
 `profile.py` und `status.py`, `utils/browser.py` die Browser- und Profil-Auswahl,
-`.claude/skills/` die Agent-Skills, `docs/` diese Dokumentation.
+`.claude/skills/` die Agent-Skills, `docs/` diese Dokumentation (`handbuch.md` als Einstieg).
 Agent-Regeln: [AGENTS.md](./AGENTS.md).
 
 ### Lizenz
@@ -233,7 +234,8 @@ Copy-Item conf.example.py conf.py # then set LOCAL_BROWSER etc.
 sau --help
 ```
 
-See [docs/install.md](./docs/install.md), [docs/update.md](./docs/update.md) and the full flag
+Start with the full user handbook: [docs/handbuch.md](./docs/handbuch.md). See
+[docs/install.md](./docs/install.md), [docs/update.md](./docs/update.md) and the full flag
 reference in [docs/CLI.md](./docs/CLI.md).
 
 ### First steps
@@ -257,7 +259,8 @@ to the path given with `--result`.
 - `submission_unknown` means "unclear", not "failed": check the account before re-uploading.
 - Facebook Page schedules use **Beijing time** (`Asia/Shanghai`) and must be at least 2 hours ahead.
 - Instagram and Facebook profiles cannot schedule.
-- YouTube: title ≤ 100 characters; scheduling uses the Studio dialog, so verify the date fields.
+- YouTube: title ≤ 100 characters; an upload publishes immediately. `--schedule` is rejected for
+  YouTube because the Studio dialog is not automated — pick the time there yourself.
 - Cookie automation violates the platforms' terms of service and can trigger risk control or
   account blocks.
 - Selectors break when a platform redesigns its web UI; stop and report instead of guessing.
@@ -267,7 +270,7 @@ to the path given with `--result`.
 `uploader/` holds the browser flows (`meta_uploader` = Facebook + Page + Instagram,
 `tk_uploader` = TikTok, `youtube_uploader`), `sau_commands/` the per-platform CLI arguments
 including `profile.py` and `status.py`, `utils/browser.py` the browser and profile selection,
-`.claude/skills/` the agent skills, `docs/` this documentation. Agent rules:
+`.claude/skills/` the agent skills, `docs/` this documentation (start at `handbuch.md`). Agent rules:
 [AGENTS.md](./AGENTS.md).
 
 ### License

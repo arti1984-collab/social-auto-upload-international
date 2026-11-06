@@ -77,6 +77,10 @@ The upstream docs add `PLAYWRIGHT_DOWNLOAD_HOST="https://npmmirror.com/mirrors/p
    flow expects, stop and report instead of guessing.
 8. Timezones: `--schedule` for `facebook-page` means Beijing time (`Asia/Shanghai`); YouTube
    Studio takes the time in the browser's local timezone. Convert explicitly and confirm.
+9. This repository is public. Before **every** commit and push, check that no personal data of
+   the owner goes along, and report the result. Never commit `profiles/` (live browser session),
+   `logs/`, `cookies/`, `conf.py`, session JSON files or media from real uploads. On any hit,
+   stop and report instead of committing.
 
 ## Risk
 

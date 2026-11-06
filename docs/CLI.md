@@ -9,6 +9,7 @@
 `.claude/skills/tiktok-upload/SKILL.md`).
 
 Aktuelle Parameter immer selbst prüfen: `sau <plattform> --help`, `sau <plattform> upload-video --help`.
+Zum Einstieg ins Projekt: [handbuch.md](./handbuch.md).
 
 ### Gemeinsame Konventionen
 
@@ -37,11 +38,13 @@ sau youtube login --account <name>
 sau youtube check --account <name>
 sau youtube upload-video --account <name> --file videos/demo.mp4 --title "Titel" --desc "Beschreibung" \
   --tags tag1,tag2 --playlist "Meine Serie" --visibility public
-sau youtube upload-video --account <name> --file videos/demo.mp4 --title "Geplant" --schedule "2026-11-20 18:00"
+# YouTube-Scheduling ist im Browser-Flow nicht umgesetzt: --schedule wird abgelehnt,
+# statt sofort zu veroeffentlichen. Termin im Studio selbst setzen.
 ```
 
 Titel max. 100 Zeichen; `--visibility` = `public` | `unlisted` | `private`; `--thumbnail` setzt ein
-Cover. Ohne `--schedule` wird sofort veröffentlicht.
+Cover. Ein Upload veröffentlicht sofort; `--schedule` wird für YouTube mit einer Fehlermeldung
+abgelehnt, weil der Studio-Dialog nicht automatisiert ist.
 
 ### Facebook-Profil
 
@@ -165,6 +168,7 @@ Details: [article.md](./article.md).
 `article`, `profile`, `status`. TikTok has no CLI command (see `.claude/skills/tiktok-upload/SKILL.md`).
 
 Always verify flags yourself: `sau <platform> --help`, `sau <platform> upload-video --help`.
+For a guided start: [handbuch.md](./handbuch.md).
 
 ### Shared conventions
 
@@ -191,11 +195,13 @@ sau youtube login --account <name>
 sau youtube check --account <name>
 sau youtube upload-video --account <name> --file videos/demo.mp4 --title "Title" --desc "Description" \
   --tags tag1,tag2 --playlist "My series" --visibility public
-sau youtube upload-video --account <name> --file videos/demo.mp4 --title "Scheduled" --schedule "2026-11-20 18:00"
+# YouTube scheduling is not implemented in the browser flow: --schedule is rejected instead
+# of publishing immediately. Pick the time in YouTube Studio.
 ```
 
 Title ≤ 100 characters; `--visibility` = `public` | `unlisted` | `private`; `--thumbnail` sets a
-cover. Without `--schedule` the video is published immediately.
+cover. An upload publishes immediately; `--schedule` is rejected for YouTube with an error,
+because the Studio dialog is not automated.
 
 ### Facebook profile
 

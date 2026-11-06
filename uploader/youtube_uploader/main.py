@@ -153,6 +153,24 @@ async def _click_if_present(page: Page, selector: str, timeout: int = 4000) -> b
         return False
 
 
+# Studio localizes the progress label; matching only Chinese/English made German accounts sit in
+# the poll loop for the full 30 minutes before publishing.
+_UPLOAD_IN_PROGRESS = ("steht aus", "wird geprüft", "noch ", "läuft")
+_UPLOAD_DONE = (
+    "处理", "检查", "上传完成", "已上传",
+    "processing", "complete", "checks", "finished",
+    "abgeschlossen", "keine probleme", "fertig",
+)
+
+
+def _upload_finished(text: str) -> bool:
+    """True once Studio reports a finished upload/check, in any UI language."""
+    lowered = text.lower()
+    if any(k in lowered for k in _UPLOAD_IN_PROGRESS):
+        return False
+    return any(k in lowered for k in _UPLOAD_DONE)
+
+
 async def _wait_upload_complete(page: Page, max_polls: int = 360) -> bool:
     """Wait until the web upload goes from X% to 100% before publishing. A browser upload only finishes while the window stays open,
     so publishing halfway and closing the browser truncates the upload (e.g. at 76%).
@@ -170,7 +188,7 @@ async def _wait_upload_complete(page: Page, max_polls: int = 360) -> bool:
             except Exception:
                 pass
         if txt:
-            if any(k in txt for k in ("处理", "检查", "上传完成", "已上传", "Processing", "complete", "Checks", "Finished")):
+            if _upload_finished(txt):
                 youtube_logger.info(_msg("✅", f"Upload finished: {txt[:40]}"))
                 return True
             if txt != last:

@@ -7,7 +7,7 @@ import os
 import asyncio
 from uploader.tk_uploader.tk_config import Tk_Locator
 from utils.base_social_media import set_init_script
-from utils.files_times import get_absolute_path
+from uploader.tk_uploader.main_chrome import _wait_for_login, account_path
 from utils.log import tiktok_logger
 from conf import LOCAL_CHROME_HEADLESS
 
@@ -39,22 +39,22 @@ async def cookie_auth(account_file):
 
 
 async def tiktok_setup(account_file, handle=False):
-    account_file = get_absolute_path(account_file, "tk_uploader")
+    account_file = account_path(account_file)
     if not os.path.exists(account_file) or not await cookie_auth(account_file):
         if not handle:
             return False
         tiktok_logger.info('[+] cookie file is not existed or expired. Now open the browser auto. Please login with your way(gmail phone, whatever, the cookie file will generated after login')
-        await get_tiktok_cookie(account_file)
+        return await get_tiktok_cookie(account_file)
     return True
 
 
-async def get_tiktok_cookie(account_file):
+async def get_tiktok_cookie(account_file, *, headless=False):
     async with async_playwright() as playwright:
         options = {
             'args': [
                 '--lang en-GB',
             ],
-            'headless': LOCAL_CHROME_HEADLESS,  # Set headless option here
+            'headless': headless,
         }
         # Make sure to run headed.
         browser = await playwright.firefox.launch(**options)
@@ -63,10 +63,17 @@ async def get_tiktok_cookie(account_file):
         context = await set_init_script(context)
         # Pause the page, and start recording manually.
         page = await context.new_page()
-        await page.goto("https://www.tiktok.com/login?lang=en")
-        await page.pause()
-        # click continue in the debugger and save the cookie
-        await context.storage_state(path=account_file)
+        account_file = account_path(account_file, create=True)
+        await page.goto("https://www.tiktok.com/login?lang=en", wait_until="domcontentloaded")
+        tiktok_logger.info("[+] Sign in to TikTok in the opened browser; the session is saved afterwards")
+        ok = await _wait_for_login(page, context)
+        if ok:
+            await context.storage_state(path=str(account_file))
+            tiktok_logger.success(f"[+] TikTok session saved: {account_file}")
+        else:
+            tiktok_logger.error("[+] No TikTok sign-in detected; the session was not saved")
+        await browser.close()
+        return ok
 
 
 class TiktokVideo(object):

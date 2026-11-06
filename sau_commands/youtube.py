@@ -69,6 +69,13 @@ async def check_youtube_account(account_name: str) -> bool:
 
 
 async def upload_youtube_video(request: YouTubeVideoUploadRequest) -> Path:
+    if request.schedule:
+        # The browser flow stops after picking the visibility; there is no handler for Studio's
+        # schedule dialog, so publishing now would silently ignore the requested time.
+        raise RuntimeError(
+            "YouTube scheduling is not implemented in the browser flow; refusing to publish now. "
+            "Upload without --schedule and pick the time in YouTube Studio."
+        )
     account_file = resolve_account_file("youtube", request.account_name)
     is_ready = await youtube_setup(str(account_file), handle=False)
     if not is_ready:
@@ -88,7 +95,7 @@ async def upload_youtube_video(request: YouTubeVideoUploadRequest) -> Path:
         debug=request.debug,
         headless=request.headless,
     )
-    app.set_publish_date(request.schedule)
+
     await app.main()
     return account_file
 
