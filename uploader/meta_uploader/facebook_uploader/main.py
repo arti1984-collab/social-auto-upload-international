@@ -23,6 +23,10 @@ FACEBOOK_PROXY = os.environ.get("SAU_FACEBOOK_PROXY")
 FACEBOOK_LOGIN_INPUT = 'input[name="email"]'
 # The feed composer accepts images and videos, while avatar/cover controls never expose this MIME set.
 FACEBOOK_MEDIA_INPUT = 'input[type="file"][accept*="image/"][accept*="video/"]'
+# The composer dialog's own submit action, per UI language of the account.
+PUBLISH_LABELS = ("Posten", "Publish", "Post", "Teilen", "Share", "发布")
+# The dialog that owns a composer text box; the live Reel composer carries no aria-modal attribute.
+COMPOSER_DIALOG = '[role="dialog"]:has([contenteditable="true"][role="textbox"])'
 
 
 def _proxy_options(proxy: str | None) -> dict[str, str] | None:
@@ -45,7 +49,7 @@ async def _is_logged_out(page: Page) -> bool:
     if await email_input.count() and await email_input.first.is_visible():
         return True
     # The composer's file input proves the feed is mounted; a blank or signing-in page never counts as signed in.
-    return await page.locator(FACEBOOK_MEDIA_INPUT).count() != 1
+    return await page.locator(FACEBOOK_MEDIA_INPUT).count() == 0
 
 
 async def _open_facebook_page(playwright: Playwright, account_file: Path, *, proxy: str | None, headless: bool):
@@ -174,19 +178,23 @@ class FacebookPost:
         return "\n\n".join(parts)
 
     async def _find_caption_editor(self, page: Page):
-        # The outer aria-modal dialog is this post's form; exclude the feed comment box and hidden templates.
-        editor = page.locator('[role="dialog"][aria-modal="true"] [contenteditable="true"][role="textbox"]')
+        # The composer dialog owns a text box and needs no aria-modal attribute; hidden templates and
+        # the feed comment box never match this combination, so exactly one dialog stays.
+        await expect(page.locator(COMPOSER_DIALOG)).to_have_count(1)
+        editor = page.locator(COMPOSER_DIALOG).locator('[contenteditable="true"][role="textbox"]')
         await expect(editor).to_have_count(1)
         return editor
 
     async def _find_publish_button(self, page: Page):
-        # The form's last action is submit; the buttons before it close the editor or edit privacy and attachments.
-        # Both image and video DOM were checked; the nested dialog is the editor header, never the submit area.
-        form = page.locator('[role="dialog"][aria-modal="true"] form')
-        await expect(form).to_have_count(1)
-        button = form.get_by_role('button').last
-        await expect(button).to_be_visible()
-        return button
+        # The submit control carries the dialog's own label, so no position inside the form is guessed.
+        dialog = page.locator(COMPOSER_DIALOG)
+        await expect(dialog).to_have_count(1)
+        for label in PUBLISH_LABELS:
+            button = dialog.get_by_role('button', name=label, exact=True)
+            if await button.count() == 1:
+                await expect(button).to_be_visible()
+                return button
+        raise RuntimeError('Publish button not found in the composer dialog')
 
     async def _wait_until_publishable(self, page: Page) -> None:
         deadline = asyncio.get_running_loop().time() + 180

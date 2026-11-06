@@ -127,6 +127,9 @@ unter `.local/` bzw. am mit `--result` angegebenen Pfad.
 - Facebook-Page-Zeiten gelten in der **lokalen Zeit des Rechners**, mindestens 2 Stunden in der Zukunft.
 - Beschreibung und Hashtags schlägt `sau caption` vor, beim Upload über `--auto-desc` und
   `--auto-tags` — regelbasiert, ohne KI-Dienst.
+- Der Facebook-Upload nutzt den Composer deiner eigenen Sitzung; die Erfolgsmeldung danach wird
+  nur auf Englisch und Chinesisch erkannt. Bei deutscher Oberfläche kann der Beitrag online sein,
+  obwohl `sau` keinen Erfolg bestätigt — dann im Profil nachsehen.
 - Instagram kann nicht planen, Facebook-Profile auch nicht.
 - YouTube: Titel max. 100 Zeichen; ein Upload veröffentlicht sofort. `--schedule` wird für YouTube
   abgelehnt, weil der Studio-Dialog nicht automatisiert ist — den Termin dort selbst setzen.
@@ -264,6 +267,9 @@ to the path given with `--result`.
 - Facebook Page schedules use the machine's **local time** and must be at least 2 hours ahead.
 - `sau caption` suggests a description and hashtags, and `--auto-desc` / `--auto-tags` apply them
   during an upload — rule-based, without an AI service.
+- The Facebook upload uses the composer of your own session; the success message afterwards is
+  only recognised in English and Chinese. On a German interface the post can be online while `sau`
+  reports no confirmation — check the profile in that case.
 - Instagram and Facebook profiles cannot schedule.
 - YouTube: title ≤ 100 characters; an upload publishes immediately. `--schedule` is rejected for
   YouTube because the Studio dialog is not automated — pick the time there yourself.

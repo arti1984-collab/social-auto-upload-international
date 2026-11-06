@@ -124,6 +124,52 @@ class FacebookCliTests(unittest.TestCase):
         self.assertEqual(request.proxy, "http://proxy.example:8080")
 
 
+class FacebookComposerSelectorTests(unittest.TestCase):
+    def test_composer_without_aria_modal_is_found(self):
+        """The live Reel composer carries no aria-modal, so the text box identifies the form."""
+
+        async def scenario():
+            async with async_playwright() as playwright:
+                browser = await launch_test_browser(playwright)
+                page = await browser.new_page()
+                await page.set_content(
+                    '<div role="dialog">'
+                    '<div contenteditable="true" role="textbox"></div>'
+                    '<div role="button">Quelltext</div>'
+                    '<div role="button">Posten</div>'
+                    '</div>'
+                )
+                uploader = FacebookVideo(
+                    title="Title",
+                    file_path="video.mp4",
+                    description="",
+                    tags=[],
+                    account_file="account.json",
+                )
+                editor = await uploader._find_caption_editor(page)
+                button = await uploader._find_publish_button(page)
+                editor_count, label = await editor.count(), await button.inner_text()
+                await browser.close()
+                return editor_count, label
+
+        self.assertEqual(asyncio.run(scenario()), (1, "Posten"))
+
+    def test_composer_page_with_two_file_inputs_is_not_logged_out(self):
+        async def scenario():
+            async with async_playwright() as playwright:
+                browser = await launch_test_browser(playwright)
+                page = await browser.new_page()
+                await page.set_content(
+                    '<main><input type="file" accept="image/*,video/*">'
+                    '<input type="file" accept="image/*,video/*"></main>'
+                )
+                result = await _is_logged_out(page)
+                await browser.close()
+                return result
+
+        self.assertFalse(asyncio.run(scenario()))
+
+
 class FacebookStorageStateTests(unittest.TestCase):
     def test_missing_storage_state_is_invalid_without_network(self):
         with tempfile.TemporaryDirectory() as directory:
