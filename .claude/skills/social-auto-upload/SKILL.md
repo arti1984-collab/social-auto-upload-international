@@ -7,9 +7,9 @@ license: MIT-0
 # social-auto-upload — entry point
 
 This checkout is scoped to **TikTok, YouTube, Facebook profile, Facebook Page and Instagram**.
-The Chinese platforms of the upstream project (Douyin, Kuaishou, Xiaohongshu, WeChat Channels,
-Bilibili, Baijiahao, Dayu, Alipay, Weibo, Hupu, Xueqiu, Zhihu) were removed on purpose: do not
-offer them, do not re-add their skills, do not run their CLI subcommands.
+Other platforms (Douyin, Kuaishou, Xiaohongshu, WeChat Channels, Bilibili, Baijiahao, Dayu,
+Alipay, Weibo, Hupu, Xueqiu, Zhihu) are deliberately not part of the tool: do not offer them, do
+not add their skills, do not run their CLI subcommands.
 
 ## Pick the platform
 
@@ -37,5 +37,5 @@ offer them, do not re-add their skills, do not run their CLI subcommands.
 7. Report "published" only when the CLI or the platform confirmed this submission. On timeout
    or an unknown status, check the account's existing posts before doing anything else —
    never blindly re-upload.
-8. The upstream CLI prints Chinese. Translate errors and status messages for the user instead
+8. Some older helper scripts print Chinese. Translate errors and status messages for the user instead
    of pasting them raw.

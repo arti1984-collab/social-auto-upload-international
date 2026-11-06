@@ -5,8 +5,8 @@
 ## Deutsch
 
 `sau article` rendert Artikel lokal (Markdown/HTML → HTML mit Theme). Für das Veröffentlichen auf
-Plattformen wird es in diesem Fork nicht mehr gebraucht, weil die chinesischen Artikel-Plattformen
-entfernt wurden; es bleibt als lokales Werkzeug.
+Plattformen wird es nicht gebraucht, weil diese Plattformen nicht enthalten sind; es bleibt als
+lokales Werkzeug.
 
 ```powershell
 sau article themes
@@ -26,8 +26,7 @@ Skripte, iframes und SVG sind nicht erlaubt; Diagramme vorher als lokale Bilder 
 ## English
 
 `sau article` renders articles locally (Markdown/HTML → themed HTML). Publishing to platforms no
-longer uses it in this fork, because the Chinese article platforms were removed; it stays as a
-local tool.
+longer uses it, because those platforms are not part of this tool; it stays as a local tool.
 
 ```powershell
 sau article themes

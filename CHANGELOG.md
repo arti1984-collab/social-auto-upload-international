@@ -1,12 +1,11 @@
-# Änderungen in diesem Fork / Changes in this fork
+# Änderungen / Changes
 
 [Deutsch](#deutsch) · [English](#english)
 
 ## Deutsch
 
-Dieser Fork basiert auf `dreammis/social-auto-upload` (MIT) und ist auf die internationalen
-Plattformen reduziert. Die chinesische Upstream-Historie wurde entfernt, weil sie nur die
-gestrichenen Plattformen betraf.
+Das Projekt ist auf die internationalen Plattformen ausgelegt. Die frühere chinesische Historie
+wurde nicht übernommen, weil sie nur die nicht enthaltenen Plattformen betraf.
 
 - **Plattformen:** YouTube, Facebook-Profil, Facebook-Page, Instagram, TikTok (ohne CLI).
 - **Entfernt:** Douyin, Kuaishou, Xiaohongshu, WeChat-Video-Kanal, Bilibili, Baijiahao, Dayu,
@@ -21,8 +20,8 @@ gestrichenen Plattformen betraf.
 
 ## English
 
-This fork is based on `dreammis/social-auto-upload` (MIT) and is reduced to the international
-platforms. The Chinese upstream history was dropped because it only covered the removed platforms.
+The project targets the international platforms. The earlier Chinese history was not carried over
+because it only covered platforms this tool does not include.
 
 - **Platforms:** YouTube, Facebook profile, Facebook Page, Instagram, TikTok (no CLI).
 - **Removed:** Douyin, Kuaishou, Xiaohongshu, WeChat Channels, Bilibili, Baijiahao, Dayu, Alipay

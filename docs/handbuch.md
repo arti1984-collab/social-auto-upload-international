@@ -18,7 +18,7 @@ reference — that is [CLI.md](./CLI.md).
 
 `social-auto-upload-international` veröffentlicht Videos und Bild-Posts auf **YouTube,
 Facebook-Profil, Facebook-Page, Instagram und TikTok**. Es benutzt **keine offiziellen APIs**,
-sondern steuert einen echten Browser über `patchright` (ein Playwright-Fork) und klickt mit einer
+sondern steuert einen echten Browser über `patchright` und klickt mit einer
 gespeicherten Session durch die Creator-Studios.
 
 Daraus folgen zwei Dinge, die du kennen solltest:
@@ -359,7 +359,7 @@ sau status [--verify] [--verify-jobs N]
 
 `social-auto-upload-international` publishes videos and image posts to **YouTube, Facebook
 profile, Facebook Page, Instagram and TikTok**. It uses **no official APIs**: it drives a real
-browser through `patchright` (a Playwright fork) and clicks through the creator studios with a
+browser through `patchright` and clicks through the creator studios with a
 saved session.
 
 Two consequences matter:

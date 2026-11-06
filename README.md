@@ -2,28 +2,26 @@
 
 [Deutsch](#deutsch) · [English](#english)
 
-**Deutsch** — Ein Fork von [dreammis/social-auto-upload](https://github.com/dreammis/social-auto-upload)
-(MIT), beschränkt auf die internationalen Plattformen: **YouTube, Facebook-Profil, Facebook-Page,
-Instagram und TikTok**. Die chinesischen Plattformen des Originals sind entfernt, die CLI spricht
-Deutsch und Englisch, und sie steuert auf Wunsch **Chrome, Edge, Opera GX, Chromium oder
-Firefox** — wahlweise mit Cookie-Datei oder mit einem persistenten Browserprofil. Beschreibung
-und Hashtags schlägt sie regelbasiert vor, ohne KI-Dienst.
+**Deutsch** — Automatisierte Uploads für **YouTube, Facebook-Profil, Facebook-Page, Instagram und
+TikTok**. Das Tool steuert dafür einen echten Browser — **Chrome, Edge, Opera GX, Chromium oder
+Firefox** — mit gespeicherter Sitzung, wahlweise als Cookie-Datei oder als persistentes Profil,
+und kommt ohne offizielle APIs aus. Die CLI spricht Deutsch und Englisch und schlägt Beschreibung
+und Hashtags regelbasiert vor, ohne KI-Dienst.
 
-**English** — A fork of [dreammis/social-auto-upload](https://github.com/dreammis/social-auto-upload)
-(MIT), limited to the international platforms: **YouTube, Facebook profile, Facebook Page,
-Instagram and TikTok**. The Chinese platforms of the original are removed, the CLI speaks German
-and English, and it can drive **Chrome, Edge, Opera GX, Chromium or Firefox** — either with a
-cookie file or with a persistent browser profile. It also suggests
-descriptions and hashtags, rule-based and without an AI service.
+**English** — Automated uploads for **YouTube, Facebook profile, Facebook Page, Instagram and
+TikTok**. The tool drives a real browser — **Chrome, Edge, Opera GX, Chromium or Firefox** — with
+a saved session, either as a cookie file or as a persistent profile, and needs no official APIs.
+The CLI speaks German and English and suggests descriptions and hashtags with rules instead of an
+AI service.
 
 ---
 
 ## Deutsch
 
-`social-auto-upload` veröffentlicht Videos und Bild-Posts automatisiert. Es nutzt **keine
-offiziellen APIs**, sondern steuert einen Browser über `patchright` (Playwright-Fork) und klickt
-mit gespeicherter Session im Creator-Studio. Deshalb funktioniert es auch dort, wo es keine
-Upload-API gibt — und bricht, wenn eine Plattform ihr Web-UI umbaut.
+Das Tool veröffentlicht Videos und Bild-Posts automatisiert. Es nutzt **keine offiziellen APIs**,
+sondern steuert einen Browser über `patchright` und klickt mit gespeicherter Sitzung im
+Creator-Studio. Deshalb funktioniert es auch dort, wo es keine Upload-API gibt — und bricht, wenn
+eine Plattform ihr Web-UI umbaut.
 
 ### Plattformen
 
@@ -147,25 +145,22 @@ Agent-Regeln: [AGENTS.md](./AGENTS.md).
 
 ### Lizenz
 
-MIT, siehe [LICENSE](./LICENSE). Die Skills unter `.claude/skills/` stehen wie im Original unter
-MIT-0.
+MIT, siehe [LICENSE](./LICENSE). Die Skills unter `.claude/skills/` stehen unter MIT-0.
 
 ---
 
 ## English
 
-A fork of [dreammis/social-auto-upload](https://github.com/dreammis/social-auto-upload) (MIT),
-limited to the international platforms: **YouTube, Facebook profile, Facebook Page, Instagram and
-TikTok**. The Chinese platforms of the original are gone, the CLI speaks German and English, and
-it can drive **Chrome, Edge, Opera GX, Chromium or Firefox** — either with a cookie file or with a
-persistent browser profile.
+Automated uploads for **YouTube, Facebook profile, Facebook Page, Instagram and TikTok**. The tool
+drives a real browser — **Chrome, Edge, Opera GX, Chromium or Firefox** — with a saved session,
+either as a cookie file or as a persistent profile, and needs no official APIs. The CLI speaks
+German and English.
 
 ### How it works
 
 It publishes videos and image posts automatically. It uses **no official APIs**: it drives a
-browser through `patchright` (a Playwright fork) and clicks through the creator studios with a
-saved session. That is why it works where no upload API exists — and why it breaks when a platform
-redesigns its web UI.
+browser through `patchright` and clicks through the creator studios with a saved session. That is
+why it works where no upload API exists — and why it breaks when a platform redesigns its web UI.
 
 ### Platforms
 
@@ -287,4 +282,4 @@ including `profile.py` and `status.py`, `utils/browser.py` the browser and profi
 
 ### License
 
-MIT, see [LICENSE](./LICENSE). The skills in `.claude/skills/` are MIT-0, as upstream.
+MIT, see [LICENSE](./LICENSE). The skills in `.claude/skills/` are MIT-0.

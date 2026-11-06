@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "social-auto-upload"
 version = "0.1.0"
-description = "Social media auto uploader"
+description = "Browser-based uploader for YouTube, Facebook, Facebook Page, Instagram and TikTok"
 readme = "README.md"
 requires-python = ">=3.10,<3.13"
 dependencies = [

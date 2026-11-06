@@ -1,8 +1,8 @@
 # Agent instructions — social-auto-upload (international platforms only)
 
-An international fork of [dreammis/social-auto-upload](https://github.com/dreammis/social-auto-upload)
-(MIT). It publishes video and image posts by driving Chrome, Edge, Opera GX, Chromium or Firefox through `patchright`
-(Playwright fork) with a saved session — a cookie file or a persistent profile, not official APIs.
+A browser-based uploader for the international platforms. It publishes video and image posts by
+driving Chrome, Edge, Opera GX, Chromium or Firefox through `patchright` with a saved session — a
+cookie file or a persistent profile, not official APIs.
 
 ## Scope: only these platforms
 
@@ -14,18 +14,17 @@ An international fork of [dreammis/social-auto-upload](https://github.com/dreamm
 | Facebook Page | `.claude/skills/meta-upload` | `sau facebook-page` | yes | yes | yes (local time) |
 | Instagram | `.claude/skills/instagram-upload` | `sau instagram` | Reels | single / carousel | no |
 
-The upstream Chinese platforms (Douyin, Kuaishou, Xiaohongshu, WeChat Channels, Bilibili,
-Baijiahao, Dayu, Alipay, Weibo, Hupu, Xueqiu, Zhihu) were deliberately removed. Their skills are
-gone; do not offer them, do not restore the skill folders, do not run `sau douyin` & co.
+The platforms outside this scope (Douyin, Kuaishou, Xiaohongshu, WeChat Channels, Bilibili,
+Baijiahao, Dayu, Alipay, Weibo, Hupu, Xueqiu, Zhihu) are deliberately not part of the tool. Their
+skills do not exist; do not offer them, do not add skill folders, do not run `sau douyin` & co.
 
-Their code is removed as well: the 12 `sau_commands/*.py` modules, their `uploader/*_uploader/`
-packages, the matching `examples/` scripts and `tests/`, plus the legacy web stack
+Their code is not part of this project either: the 12 `sau_commands/*.py` modules, their
+`uploader/*_uploader/` packages, the matching `examples/` scripts and `tests/`, plus the legacy web stack
 (`sau_backend.py`, `sau_backend/`, `sau_frontend/`, `myUtils/`). `sau` now knows exactly five
 subcommands: `article`, `facebook`, `facebook-page`, `instagram`, `youtube`. `sau article` only
 renders local Markdown/HTML and needs Node.js 22+ for themes.
 
-Do not re-add any of it, and do not "restore upstream" with `git checkout` — that brings the
-Chinese platforms back.
+Do not add any of it back: checking out an older commit can bring the other platforms in.
 
 ## Layout
 
@@ -37,7 +36,7 @@ Chinese platforms back.
   reference, `docs/install.md` and `docs/update.md` cover setup and upgrades.
 - `conf.example.py` — config template (`LOCAL_CHROME_PATH`, `LOCAL_CHROME_HEADLESS`,
   `DEBUG_MODE`).
-- `examples/` — upstream sample and debugging scripts, partly Chinese and partly outdated.
+- `examples/` — sample and debugging scripts, partly Chinese and partly outdated.
 
 ## Environment
 
@@ -55,7 +54,7 @@ Copy-Item conf.example.py conf.py        # then set LOCAL_CHROME_PATH etc.
 sau youtube --help                       # smoke test
 ```
 
-The upstream docs add `PLAYWRIGHT_DOWNLOAD_HOST="https://npmmirror.com/mirrors/playwright"`
+For slow networks the setup can add `PLAYWRIGHT_DOWNLOAD_HOST="https://npmmirror.com/mirrors/playwright"`
 (Chinese mirror). Skip that unless the default download fails.
 
 ## Hard rules
