@@ -247,6 +247,26 @@ Wichtig bei TikTok:
 Für Tests immer zuerst `private` (TikTok: „Only you") bzw. `unlisted`/`private` (YouTube) wählen und
 im Studio gegenprüfen, bevor etwas öffentlich wird.
 
+#### Beschreibung und Hashtags automatisch
+
+`sau caption --title "Titel" --notes "Notizen"` baut aus Titel und Notizen eine Beschreibung und
+Hashtags — ohne KI-Dienst, also immer gleich und ohne dass Text das Haus verlässt. Mit
+`--for instagram --lang de` gelten die Grenzen dieser Plattform und die deutsche Formulierung,
+`--json caption.json` schreibt das Ergebnis als JSON.
+
+Beim Upload übernehmen das `--auto-desc` und `--auto-tags`:
+
+```powershell
+sau youtube upload-video --account creator --file videos/demo.mp4 --title "Kaffee richtig brühen" ^
+  --auto-desc --auto-tags --lang de
+```
+
+Dein eigener Text gewinnt immer: steht schon etwas in `--desc` bzw. `--note`, bleibt es unverändert,
+und die vorgeschlagenen Hashtags kommen zu deinen eigenen dazu, ohne Doppelte. Die Hashtags stammen
+aus den aussagekräftigen Wörtern von Titel und Text; Umlaute werden zu `ae/oe/ue`, deshalb steht
+dort `#bruehen` statt `#brühen`. Die Zahl der Hashtags bleibt pro Plattform im Rahmen, damit der
+Post nicht nach Spam aussieht.
+
 ### 8. Profile und Sessions verwalten
 
 ```powershell
@@ -486,6 +506,25 @@ asyncio.run(main())
 | TikTok | `visibility="public"\|"friends"\|"private"` | `publish_date` as `datetime` |
 
 Always test privately (`private` / `unlisted`) and verify in the studio before anything goes public.
+
+#### Description and hashtags automatically
+
+`sau caption --title "Title" --notes "Notes"` builds a description and hashtags from the title and
+your notes — without an AI service, so the same input always gives the same text and nothing leaves
+your machine. `--for instagram --lang en` applies that platform's limits and English wording, and
+`--json caption.json` writes the result as JSON.
+
+During an upload, `--auto-desc` and `--auto-tags` take over:
+
+```powershell
+sau youtube upload-video --account creator --file videos/demo.mp4 --title "Brewing coffee properly" ^
+  --auto-desc --auto-tags --lang en
+```
+
+Your own text always wins: whatever you pass in `--desc` or `--note` stays as it is, and the
+suggested hashtags are added to yours without duplicates. The hashtags come from the significant
+words of title and text; umlauts become `ae/oe/ue`, which is why you see `#bruehen` instead of
+`#brühen`. The count stays within each platform's range so the post does not look like spam.
 
 ### 8. Profiles and sessions
 

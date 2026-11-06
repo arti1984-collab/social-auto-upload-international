@@ -8,6 +8,7 @@ from typing import Sequence
 
 from sau_commands import (
     article,
+    caption,
     facebook,
     facebook_page,
     instagram,
@@ -31,6 +32,7 @@ from utils.browser import (
 
 PLATFORMS = {
     "article": article,
+    "caption": caption,
     "facebook": facebook,
     "facebook-page": facebook_page,
     "instagram": instagram,

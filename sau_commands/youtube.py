@@ -5,6 +5,7 @@ from datetime import datetime
 from pathlib import Path
 from uploader.youtube_uploader.main import YouTubeVideo, cookie_auth as youtube_cookie_auth, youtube_setup
 from utils.browser import session_available
+from sau_commands.caption import add_caption_flags, apply_caption
 from sau_commands.arguments import (
     SCHEDULE_FORMAT,
     account_argument,
@@ -33,6 +34,7 @@ def register(platform_parsers):
     youtube_upload_video_parser.add_argument("--title", required=True, help="Video title (<=100 chars)")
     youtube_upload_video_parser.add_argument("--desc", default="", help="Optional video description")
     youtube_upload_video_parser.add_argument("--tags", default="", help="Comma-separated tags, such as tag1,tag2")
+    add_caption_flags(youtube_upload_video_parser)
     youtube_upload_video_parser.add_argument("--thumbnail", type=existing_file_path, help="Optional thumbnail image path")
     youtube_upload_video_parser.add_argument("--playlist", help="Optional playlist name to add the video to (for series)")
     youtube_upload_video_parser.add_argument(
@@ -115,12 +117,16 @@ async def run(args):
         return 0 if is_valid else 1
 
     if args.action == "upload-video":
+        description, tags = apply_caption(
+            "youtube", args.title, args.desc, parse_tags(args.tags),
+            auto_desc=args.auto_desc, auto_tags=args.auto_tags, lang=args.caption_lang,
+        )
         request = YouTubeVideoUploadRequest(
             account_name=args.account,
             video_file=args.file,
             title=args.title,
-            description=args.desc,
-            tags=parse_tags(args.tags),
+            description=description,
+            tags=tags,
             thumbnail_file=args.thumbnail,
             playlist=args.playlist,
             visibility=args.visibility,

@@ -11,6 +11,7 @@ from uploader.meta_uploader.facebook_page_uploader.main import (
     meta_setup,
 )
 from uploader.meta_uploader.facebook_page_uploader.posts import meta_post_action
+from sau_commands.caption import add_caption_flags, apply_caption
 from sau_commands.arguments import (
     SCHEDULE_FORMAT,
     account_argument,
@@ -58,6 +59,7 @@ def register(platform_parsers):
         upload_video_parser.add_argument("--title", required=True)
         upload_video_parser.add_argument("--desc", default="")
         upload_video_parser.add_argument("--tags", default="")
+        add_caption_flags(upload_video_parser)
         upload_video_parser.add_argument("--page", default=None, help="Business Suite publisher name; the current one is used when omitted")
         upload_video_parser.add_argument("--schedule", type=schedule_value, help=f"Scheduled publish time, format {schedule_help}")
         upload_video_parser.add_argument("--proxy", default=FACEBOOK_PAGE_PROXY, help="Proxy address; direct connection when omitted")
@@ -71,6 +73,7 @@ def register(platform_parsers):
         upload_note_parser.add_argument("--title", required=True)
         upload_note_parser.add_argument("--note", default="")
         upload_note_parser.add_argument("--tags", default="")
+        add_caption_flags(upload_note_parser)
         upload_note_parser.add_argument("--page", default=None, help="Business Suite publisher name; the current one is used when omitted")
         upload_note_parser.add_argument("--schedule", type=schedule_value, help=f"Scheduled publish time, format {schedule_help}")
         upload_note_parser.add_argument("--proxy", default=FACEBOOK_PAGE_PROXY, help="Proxy address; direct connection when omitted")
@@ -163,12 +166,17 @@ async def run(args):
         return 0 if is_valid else 1
 
     if args.action in {"upload-video", "upload-note"}:
+        description, tags = apply_caption(
+            "facebook-page", args.title, args.desc if args.action == "upload-video" else args.note,
+            parse_tags(args.tags), auto_desc=args.auto_desc, auto_tags=args.auto_tags,
+            lang=args.caption_lang,
+        )
         request = MetaUploadRequest(
             platform=args.platform,
             account_name=args.account,
             title=args.title,
-            description=args.desc if args.action == "upload-video" else args.note,
-            tags=parse_tags(args.tags),
+            description=description,
+            tags=tags,
             video_file=args.file if args.action == "upload-video" else None,
             image_files=parse_image_files(args.images) if args.action == "upload-note" else None,
             schedule=args.schedule or 0,

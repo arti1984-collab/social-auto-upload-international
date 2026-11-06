@@ -10,6 +10,7 @@ from uploader.meta_uploader.insgraph_uploader.main import (
     instagram_setup,
 )
 from uploader.meta_uploader.insgraph_uploader.posts import instagram_post_action
+from sau_commands.caption import add_caption_flags, apply_caption
 from sau_commands.arguments import (
     SCHEDULE_FORMAT,
     account_argument,
@@ -40,6 +41,7 @@ def register(platform_parsers):
     instagram_video.add_argument("--title", required=True)
     instagram_video.add_argument("--desc", default="")
     instagram_video.add_argument("--tags", default="")
+    add_caption_flags(instagram_video)
     instagram_video.add_argument("--proxy", default=INSTAGRAM_PROXY, help="Proxy address; direct connection when omitted")
     instagram_video.add_argument("--result", type=Path)
     add_runtime_flags(instagram_video)
@@ -50,6 +52,7 @@ def register(platform_parsers):
     instagram_note.add_argument("--title", required=True)
     instagram_note.add_argument("--note", default="")
     instagram_note.add_argument("--tags", default="")
+    add_caption_flags(instagram_note)
     instagram_note.add_argument("--proxy", default=INSTAGRAM_PROXY, help="Proxy address; direct connection when omitted")
     instagram_note.add_argument("--result", type=Path)
     add_runtime_flags(instagram_note)
@@ -119,11 +122,16 @@ async def run(args):
         print("valid" if is_valid else "invalid")
         return 0 if is_valid else 1
     if args.action in {"upload-video", "upload-note"}:
+        description, tags = apply_caption(
+            "instagram", args.title, args.desc if args.action == "upload-video" else args.note,
+            parse_tags(args.tags), auto_desc=args.auto_desc, auto_tags=args.auto_tags,
+            lang=args.caption_lang,
+        )
         request = InstagramUploadRequest(
             account_name=args.account,
             title=args.title,
-            description=args.desc if args.action == "upload-video" else args.note,
-            tags=parse_tags(args.tags),
+            description=description,
+            tags=tags,
             video_file=args.file if args.action == "upload-video" else None,
             image_files=parse_image_files(args.images) if args.action == "upload-note" else None,
             thumbnail=args.thumbnail if args.action == "upload-video" else None,

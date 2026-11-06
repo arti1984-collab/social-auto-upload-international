@@ -13,6 +13,7 @@ from uploader.meta_uploader.facebook_uploader.main import (
 )
 from uploader.meta_uploader.facebook_uploader.posts import facebook_post_action
 from utils.browser import session_available
+from sau_commands.caption import add_caption_flags, apply_caption
 from sau_commands.arguments import (
     SCHEDULE_FORMAT,
     account_argument,
@@ -66,6 +67,7 @@ def register(platform_parsers):
     facebook_upload_video_parser.add_argument("--title", required=True, help="Post title, merged into Facebook caption")
     facebook_upload_video_parser.add_argument("--desc", default="", help="Optional post description")
     facebook_upload_video_parser.add_argument("--tags", default="", help="Comma-separated tags, such as tag1,tag2")
+    add_caption_flags(facebook_upload_video_parser)
     facebook_upload_video_parser.add_argument(
         "--proxy",
         default=FACEBOOK_PROXY,
@@ -79,6 +81,7 @@ def register(platform_parsers):
     facebook_note.add_argument("--title", required=True)
     facebook_note.add_argument("--note", default="")
     facebook_note.add_argument("--tags", default="")
+    add_caption_flags(facebook_note)
     facebook_note.add_argument("--proxy", default=FACEBOOK_PROXY, help="Proxy address; direct connection when omitted")
     add_runtime_flags(facebook_note)
     facebook_note.set_defaults(headless=False)
@@ -149,7 +152,11 @@ async def run(args):
     if args.action == "upload-note":
         for image in args.images:
             BaseVideoUploader.validate_image_file(image)
-        app = FacebookPost(args.title, args.images, args.note, parse_tags(args.tags),
+        description, tags = apply_caption(
+            "facebook", args.title, args.note, parse_tags(args.tags),
+            auto_desc=args.auto_desc, auto_tags=args.auto_tags, lang=args.caption_lang,
+        )
+        app = FacebookPost(args.title, args.images, description, tags,
                            resolve_account_file("facebook", args.account), proxy=args.proxy, headless=args.headless)
         await app.main()
         print("Facebook image post submitted")
@@ -183,12 +190,16 @@ async def run(args):
         return 0 if is_valid else 1
 
     if args.action == "upload-video":
+        description, tags = apply_caption(
+            "facebook", args.title, args.desc, parse_tags(args.tags),
+            auto_desc=args.auto_desc, auto_tags=args.auto_tags, lang=args.caption_lang,
+        )
         request = FacebookVideoUploadRequest(
             account_name=args.account,
             video_file=args.file,
             title=args.title,
-            description=args.desc,
-            tags=parse_tags(args.tags),
+            description=description,
+            tags=tags,
             proxy=args.proxy,
             debug=args.debug,
             headless=args.headless,

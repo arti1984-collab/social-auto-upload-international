@@ -6,13 +6,14 @@
 (MIT), beschränkt auf die internationalen Plattformen: **YouTube, Facebook-Profil, Facebook-Page,
 Instagram und TikTok**. Die chinesischen Plattformen des Originals sind entfernt, die CLI spricht
 Deutsch und Englisch, und sie steuert auf Wunsch **Chrome, Edge, Opera GX, Chromium oder
-Firefox** — wahlweise mit Cookie-Datei oder mit einem persistenten Browserprofil.
+Firefox** — wahlweise mit Cookie-Datei oder mit einem persistenten Browserprofil. Beschreibung
+und Hashtags schlägt sie regelbasiert vor, ohne KI-Dienst.
 
 **English** — A fork of [dreammis/social-auto-upload](https://github.com/dreammis/social-auto-upload)
 (MIT), limited to the international platforms: **YouTube, Facebook profile, Facebook Page,
 Instagram and TikTok**. The Chinese platforms of the original are removed, the CLI speaks German
-and English, and it can drive **Chrome, Edge, Opera GX, Chromium or Firefox** — either with a
-cookie file or with a persistent browser profile.
+and English, and it can drive **Chrome, Edge, Opera GX, Chromium orFirefox** — either with a cookie file or with a persistent browser profile. It also suggests
+descriptions and hashtags, rule-based and without an AI service.
 
 ---
 
@@ -123,6 +124,8 @@ unter `.local/` bzw. am mit `--result` angegebenen Pfad.
 - `submission_unknown` heißt „unklar", nicht „fehlgeschlagen": erst am Account nachsehen, nicht
   blind erneut hochladen.
 - Facebook-Page-Zeiten gelten in der **lokalen Zeit des Rechners**, mindestens 2 Stunden in der Zukunft.
+- Beschreibung und Hashtags schlägt `sau caption` vor, beim Upload über `--auto-desc` und
+  `--auto-tags` — regelbasiert, ohne KI-Dienst.
 - Instagram kann nicht planen, Facebook-Profile auch nicht.
 - YouTube: Titel max. 100 Zeichen; ein Upload veröffentlicht sofort. `--schedule` wird für YouTube
   abgelehnt, weil der Studio-Dialog nicht automatisiert ist — den Termin dort selbst setzen.
@@ -258,6 +261,8 @@ to the path given with `--result`.
 - Sign-in, captchas and 2FA are done by you in the browser window that opens.
 - `submission_unknown` means "unclear", not "failed": check the account before re-uploading.
 - Facebook Page schedules use the machine's **local time** and must be at least 2 hours ahead.
+- `sau caption` suggests a description and hashtags, and `--auto-desc` / `--auto-tags` apply them
+  during an upload — rule-based, without an AI service.
 - Instagram and Facebook profiles cannot schedule.
 - YouTube: title ≤ 100 characters; an upload publishes immediately. `--schedule` is rejected for
   YouTube because the Studio dialog is not automated — pick the time there yourself.

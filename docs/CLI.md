@@ -11,6 +11,11 @@
 Aktuelle Parameter immer selbst prüfen: `sau <plattform> --help`, `sau <plattform> upload-video --help`.
 Zum Einstieg ins Projekt: [handbuch.md](./handbuch.md).
 
+Beschreibung und Hashtags ohne KI: `sau caption --title "Titel" --notes "Notizen"` gibt beides je
+Plattform auf Deutsch und Englisch aus (`--for tiktok --lang de --json caption.json` schränkt das
+ein). Die Upload-Befehle füllen es mit `--auto-desc` und `--auto-tags` selbst; eigener Text unter
+`--desc`/`--note` bleibt unverändert.
+
 ### Gemeinsame Konventionen
 
 - `--account <name>` — lokaler Alias für eine gespeicherte Session (`cookies/…`); frei wählbar,
@@ -169,6 +174,11 @@ Details: [article.md](./article.md).
 
 Always verify flags yourself: `sau <platform> --help`, `sau <platform> upload-video --help`.
 For a guided start: [handbuch.md](./handbuch.md).
+
+Description and hashtags without AI: `sau caption --title "Title" --notes "Notes"` prints both per
+platform in German and English (`--for tiktok --lang en --json caption.json` narrows it down). The
+upload commands fill them with `--auto-desc` and `--auto-tags`; your own `--desc`/`--note` text
+stays unchanged.
 
 ### Shared conventions
 
