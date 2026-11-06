@@ -12,7 +12,8 @@ und Hashtags schlägt sie regelbasiert vor, ohne KI-Dienst.
 **English** — A fork of [dreammis/social-auto-upload](https://github.com/dreammis/social-auto-upload)
 (MIT), limited to the international platforms: **YouTube, Facebook profile, Facebook Page,
 Instagram and TikTok**. The Chinese platforms of the original are removed, the CLI speaks German
-and English, and it can drive **Chrome, Edge, Opera GX, Chromium orFirefox** — either with a cookie file or with a persistent browser profile. It also suggests
+and English, and it can drive **Chrome, Edge, Opera GX, Chromium or Firefox** — either with a
+cookie file or with a persistent browser profile. It also suggests
 descriptions and hashtags, rule-based and without an AI service.
 
 ---
