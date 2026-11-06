@@ -2,11 +2,17 @@
 
 [Deutsch](#deutsch) · [English](#english)
 
-Ein Fork von [dreammis/social-auto-upload](https://github.com/dreammis/social-auto-upload) (MIT),
-beschränkt auf die internationalen Plattformen: **YouTube, Facebook-Profil, Facebook-Page,
+**Deutsch** — Ein Fork von [dreammis/social-auto-upload](https://github.com/dreammis/social-auto-upload)
+(MIT), beschränkt auf die internationalen Plattformen: **YouTube, Facebook-Profil, Facebook-Page,
 Instagram und TikTok**. Die chinesischen Plattformen des Originals sind entfernt, die CLI spricht
 Deutsch und Englisch, und sie steuert auf Wunsch **Chrome, Edge, Opera GX, Chromium oder
 Firefox** — wahlweise mit Cookie-Datei oder mit einem persistenten Browserprofil.
+
+**English** — A fork of [dreammis/social-auto-upload](https://github.com/dreammis/social-auto-upload)
+(MIT), limited to the international platforms: **YouTube, Facebook profile, Facebook Page,
+Instagram and TikTok**. The Chinese platforms of the original are removed, the CLI speaks German
+and English, and it can drive **Chrome, Edge, Opera GX, Chromium or Firefox** — either with a
+cookie file or with a persistent browser profile.
 
 ---
 
