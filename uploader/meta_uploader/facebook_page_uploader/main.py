@@ -171,6 +171,7 @@ class MetaBusinessUploader(BaseVideoUploader):
         self.page_name = page_name.strip() if page_name else None
         self.proxy = proxy
         self.headless = headless
+        self.timezone: str | None = None
         self.result_file = Path(result_file) if result_file else Path('.local/meta-results') / f'{uuid4().hex}.json'
         self.result = {"platform": platform, "title": self.title, "status": "not_submitted"}
 
@@ -284,10 +285,10 @@ class MetaBusinessUploader(BaseVideoUploader):
     async def _fill_schedule(self, page: Page) -> None:
         if not self.schedule:
             return
-        # This form reads times in the browser's local zone, verified as Asia/Shanghai.
-        zone = await page.evaluate("Intl.DateTimeFormat().resolvedOptions().timeZone")
-        if zone != "Asia/Shanghai" or self.schedule.tzinfo is not None:
-            raise ValueError("Meta scheduling currently needs an Asia/Shanghai browser and a Beijing time without a zone suffix")
+        # The form reads the typed digits in the browser's own zone, so the time is local wall-clock time.
+        # The zone recorded in upload() is only reported in the result; no fixed zone is assumed here.
+        if self.schedule.tzinfo is not None:
+            raise ValueError("Meta scheduling takes the browser's local time; pass a time without a zone suffix")
         if self.video_file:
             region = page.locator('[data-surface$="bizweb_create_reel:left_panel"]')
             # The share step's three modes are now, scheduled and draft; their aria-pressed marks a mode, not a submit.
@@ -399,7 +400,7 @@ class MetaBusinessUploader(BaseVideoUploader):
                 # The done dialog plus an error-free create response already prove "submitted, processing"; the id only serves later verification and deletion and must not block the result.
                 self.result['status'] = 'processing'
                 self.result['schedule'] = None
-                self.result['timezone'] = 'Asia/Shanghai'
+                self.result['timezone'] = self.timezone
                 self.result_file.write_text(json.dumps(self.result, ensure_ascii=False, indent=2), encoding='utf-8')
                 return
         # Once the create response accepts the post, look it up by Page and id instead of any localized success toast.
@@ -412,7 +413,7 @@ class MetaBusinessUploader(BaseVideoUploader):
         self.result['content_id'] = content_id
         self.result['status'] = 'scheduled' if self.schedule else ('processing' if self.video_file else 'published')
         self.result['schedule'] = self.schedule.isoformat() if self.schedule else None
-        self.result['timezone'] = 'Asia/Shanghai'
+        self.result['timezone'] = self.timezone
 
     async def upload(self) -> dict:
         if self.video_file:
@@ -426,6 +427,7 @@ class MetaBusinessUploader(BaseVideoUploader):
             try:
                 if await _is_business_logged_out(page):
                     raise RuntimeError("The Business Suite session expired; run the matching platform login first")
+                self.timezone = await page.evaluate("Intl.DateTimeFormat().resolvedOptions().timeZone")
                 await dismiss_guidance_cards(page)
                 await self._select_publish_location(page)
                 await self._upload_files(page)

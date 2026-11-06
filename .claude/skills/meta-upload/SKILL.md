@@ -20,9 +20,9 @@ sau facebook-page upload-video --account creator --page "My Page" --file videos/
 ```
 
 - `--page` must be the exact Page name; `--tags` is a comma-separated list.
-- Video and image posts accept `--schedule "YYYY-MM-DD HH:MM"`: **Beijing time**, at least
-  2 hours in the future, and the browser timezone must be `Asia/Shanghai`. Omit it to publish
-  immediately. Convert any other timezone the user gives you before passing it.
+- Video and image posts accept `--schedule "YYYY-MM-DD HH:MM"`: the browser's **local time**, at least
+  2 hours in the future. Omit it to publish
+  immediately. The browser's own timezone applies, so convert other zones.
 - Results default to `.local/meta-results/`; always pass `--result` so ids do not have to be
   copied by hand.
 - Status values: `scheduled` (platform confirmed the schedule and the record was re-read),

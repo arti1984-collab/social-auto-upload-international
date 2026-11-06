@@ -73,8 +73,8 @@ sau facebook-page verify --account <name> --page "Meine Page" --page-id "<ID>" -
 sau facebook-page delete --account <name> --page "Meine Page" --page-id "<ID>" --content-id "<ID>" --expected-text "Text" --scheduled
 ```
 
-`--schedule` = **Peking-Zeit** (`Asia/Shanghai`), mindestens 2 Stunden in der Zukunft; der Browser
-muss auf dieser Zeitzone laufen. Ergebnisse standardmäßig unter `.local/meta-results/`.
+`--schedule` = **lokale Zeit des Rechners**, mindestens 2 Stunden in der Zukunft; der Browser
+läuft ohnehin in dieser Zeitzone. Ergebnisse standardmäßig unter `.local/meta-results/`.
 
 ### Instagram
 
@@ -230,8 +230,8 @@ sau facebook-page verify --account <name> --page "My Page" --page-id "<ID>" --co
 sau facebook-page delete --account <name> --page "My Page" --page-id "<ID>" --content-id "<ID>" --expected-text "Text" --scheduled
 ```
 
-`--schedule` uses **Beijing time** (`Asia/Shanghai`) and must be at least 2 hours ahead; the
-browser has to run in that timezone. Results default to `.local/meta-results/`.
+`--schedule` uses the machine's **local time** and must be at least 2 hours ahead; the
+browser zone is used as is. Results default to `.local/meta-results/`.
 
 ### Instagram
 

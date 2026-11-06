@@ -32,7 +32,7 @@ Daraus folgen zwei Dinge, die du kennen solltest:
 | --- | --- | --- | --- | --- |
 | YouTube | `sau youtube` | ja | – | im Studio selbst |
 | Facebook-Profil | `sau facebook` | ja | ja | – |
-| Facebook-Page | `sau facebook-page` | ja | ja | ja (Peking-Zeit) |
+| Facebook-Page | `sau facebook-page` | ja | ja | ja (lokale Zeit) |
 | Instagram | `sau instagram` | Reels | Einzelbild/Karussell | – |
 | TikTok | Python-Uploader (kein CLI) | ja | ja (1–35 Bilder) | via `publish_date` |
 
@@ -161,8 +161,8 @@ sau facebook-page upload-video --account creator --page "Meine Page" --file vide
 sau facebook-page upload-note --account creator --page "Meine Page" --images images/1.jpg --title "Titel" --note "Text"
 ```
 
-`--schedule` ist **Peking-Zeit** (`Asia/Shanghai`) und muss mindestens zwei Stunden in der Zukunft
-liegen; der Browser muss in dieser Zeitzone laufen. Ergebnisse landen standardmäßig unter
+`--schedule` gilt in der **lokalen Zeit des Rechners**, auf dem der Browser läuft, und muss
+mindestens zwei Stunden in der Zukunft liegen. Ergebnisse landen standardmäßig unter
 `.local/meta-results/`.
 
 #### Instagram
@@ -240,7 +240,7 @@ Wichtig bei TikTok:
 | --- | --- | --- |
 | YouTube | `--visibility public\|unlisted\|private` | nein, im Studio setzen |
 | Facebook-Profil | über den Post selbst | nein |
-| Facebook-Page | über den Post selbst | `--schedule`, Peking-Zeit, min. 2 h vorher |
+| Facebook-Page | über den Post selbst | `--schedule`, lokale Zeit, min. 2 h vorher |
 | Instagram | über den Post selbst | nein |
 | TikTok | `visibility="public"\|"friends"\|"private"` | `publish_date` als `datetime` |
 
@@ -353,7 +353,7 @@ Two consequences matter:
 | --- | --- | --- | --- | --- |
 | YouTube | `sau youtube` | yes | – | in Studio yourself |
 | Facebook profile | `sau facebook` | yes | yes | – |
-| Facebook Page | `sau facebook-page` | yes | yes | yes (Beijing time) |
+| Facebook Page | `sau facebook-page` | yes | yes | yes (local time) |
 | Instagram | `sau instagram` | Reels | single image/carousel | – |
 | TikTok | Python uploader (no CLI) | yes | yes (1–35 images) | via `publish_date` |
 
@@ -436,9 +436,8 @@ Studio dialog is not automated.
 one caption; no scheduling; `delete` moves to the trash (30 days), `--permanent` deletes at once
 and `--from-trash` is needed when the post already sits there.
 
-**Facebook Page** — same commands plus `--page "My Page"`. `--schedule` uses **Beijing time**
-(`Asia/Shanghai`), must be at least two hours ahead, needs a browser in that timezone, and results
-default to `.local/meta-results/`.
+**Facebook Page** — same commands plus `--page "My Page"`. `--schedule` uses the browser's **local
+time**, must be at least two hours ahead, and results default to `.local/meta-results/`.
 
 **Instagram** — Reels from MP4/MOV, images as JPG/JPEG/PNG/AVIF/HEIC/HEIF, caption from title, text
 and tags (≤ 2200 characters), no scheduling, `delete` moves to "Recently deleted".
@@ -482,7 +481,7 @@ asyncio.run(main())
 | --- | --- | --- |
 | YouTube | `--visibility public\|unlisted\|private` | no, set it in Studio |
 | Facebook profile | in the post itself | no |
-| Facebook Page | in the post itself | `--schedule`, Beijing time, ≥ 2 h ahead |
+| Facebook Page | in the post itself | `--schedule`, local time, ≥ 2 h ahead |
 | Instagram | in the post itself | no |
 | TikTok | `visibility="public"\|"friends"\|"private"` | `publish_date` as `datetime` |
 

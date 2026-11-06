@@ -11,7 +11,7 @@ An international fork of [dreammis/social-auto-upload](https://github.com/dreamm
 | TikTok | `.claude/skills/tiktok-upload` | none (Python uploader) | yes | no | via `publish_date` |
 | YouTube | `.claude/skills/youtube-upload` | `sau youtube` | yes | no | via YouTube Studio |
 | Facebook profile | `.claude/skills/facebook-upload` | `sau facebook` | yes | yes | no |
-| Facebook Page | `.claude/skills/meta-upload` | `sau facebook-page` | yes | yes | yes (Beijing time) |
+| Facebook Page | `.claude/skills/meta-upload` | `sau facebook-page` | yes | yes | yes (local time) |
 | Instagram | `.claude/skills/instagram-upload` | `sau instagram` | Reels | single / carousel | no |
 
 The upstream Chinese platforms (Douyin, Kuaishou, Xiaohongshu, WeChat Channels, Bilibili,
@@ -75,8 +75,8 @@ The upstream docs add `PLAYWRIGHT_DOWNLOAD_HOST="https://npmmirror.com/mirrors/p
 6. The CLI speaks German and English; pass its errors and statuses on unchanged.
 7. Selectors break when a platform redesigns its composer. If the page does not look like the
    flow expects, stop and report instead of guessing.
-8. Timezones: `--schedule` for `facebook-page` means Beijing time (`Asia/Shanghai`); YouTube
-   Studio takes the time in the browser's local timezone. Convert explicitly and confirm.
+8. Timezones: every `--schedule` means the browser's local time, for YouTube Studio as well as the
+   Meta composer. Convert other timezones explicitly and confirm.
 9. This repository is public. Before **every** commit and push, check that no personal data of
    the owner goes along, and report the result. Never commit `profiles/` (live browser session),
    `logs/`, `cookies/`, `conf.py`, session JSON files or media from real uploads. On any hit,

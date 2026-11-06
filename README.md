@@ -29,7 +29,7 @@ Upload-API gibt — und bricht, wenn eine Plattform ihr Web-UI umbaut.
 | --- | --- | --- | --- | --- |
 | YouTube | `sau youtube` | ✅ | – | über YouTube Studio |
 | Facebook-Profil | `sau facebook` | ✅ | ✅ | – |
-| Facebook-Page | `sau facebook-page` | ✅ | ✅ | ✅ (Peking-Zeit) |
+| Facebook-Page | `sau facebook-page` | ✅ | ✅ | ✅ (lokale Zeit) |
 | Instagram | `sau instagram` | Reels | Einzelbild/Karussell | – |
 | TikTok | – (Python-Uploader) | ✅ | – | via `publish_date` |
 
@@ -122,7 +122,7 @@ unter `.local/` bzw. am mit `--result` angegebenen Pfad.
 - Login, Captchas und 2FA machst **du** im sich öffnenden Browserfenster.
 - `submission_unknown` heißt „unklar", nicht „fehlgeschlagen": erst am Account nachsehen, nicht
   blind erneut hochladen.
-- Facebook-Page-Zeiten sind **Peking-Zeit** (`Asia/Shanghai`), mindestens 2 Stunden in der Zukunft.
+- Facebook-Page-Zeiten gelten in der **lokalen Zeit des Rechners**, mindestens 2 Stunden in der Zukunft.
 - Instagram kann nicht planen, Facebook-Profile auch nicht.
 - YouTube: Titel max. 100 Zeichen; ein Upload veröffentlicht sofort. `--schedule` wird für YouTube
   abgelehnt, weil der Studio-Dialog nicht automatisiert ist — den Termin dort selbst setzen.
@@ -166,7 +166,7 @@ redesigns its web UI.
 | --- | --- | --- | --- | --- |
 | YouTube | `sau youtube` | yes | – | via YouTube Studio |
 | Facebook profile | `sau facebook` | yes | yes | – |
-| Facebook Page | `sau facebook-page` | yes | yes | yes (Beijing time) |
+| Facebook Page | `sau facebook-page` | yes | yes | yes (local time) |
 | Instagram | `sau instagram` | Reels | single image / carousel | – |
 | TikTok | – (Python uploader) | yes | – | via `publish_date` |
 
@@ -257,7 +257,7 @@ to the path given with `--result`.
 
 - Sign-in, captchas and 2FA are done by you in the browser window that opens.
 - `submission_unknown` means "unclear", not "failed": check the account before re-uploading.
-- Facebook Page schedules use **Beijing time** (`Asia/Shanghai`) and must be at least 2 hours ahead.
+- Facebook Page schedules use the machine's **local time** and must be at least 2 hours ahead.
 - Instagram and Facebook profiles cannot schedule.
 - YouTube: title ≤ 100 characters; an upload publishes immediately. `--schedule` is rejected for
   YouTube because the Studio dialog is not automated — pick the time there yourself.
